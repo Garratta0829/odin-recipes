@@ -3,8 +3,8 @@ const playerChoice = document.getElementById('user-choice')
 const resultDisplay = document.getElementById('result')
 const buttons = document.querySelectorAll('button')
 let userSelection;
-let computerSelection = getComputerChoice();
-let choice;
+let computerSelection;
+// let choice;
 
 
 
@@ -12,10 +12,9 @@ let choice;
 buttons.forEach(button => button.addEventListener('click', (e) => {
         userSelection = e.target.id;
         playerChoice.innerHTML = userSelection;
-        getComputerChoice()
-        compChoice.innerHTML = choice;
-        playRound(userSelection, computerSelection)
-        // playRound(userSelection, computerSelection)
+        compChoice.innerHTML = getComputerChoice()
+        playRound(userSelection, getComputerChoice())
+       
         
     } 
        
@@ -23,43 +22,46 @@ buttons.forEach(button => button.addEventListener('click', (e) => {
     
 
 function getComputerChoice() {
-    let choice = Math.floor((Math.random()) * 3)
-        if (choice == 0) {
-            choice = 'rock';
-        } else if (choice == 1) {
-            choice = 'paper'
-        } else if (choice == 2) {
-            choice = 'scissors'
+    let computerSelection = Math.floor((Math.random()) * 3)
+        if (computerSelection == 0) {
+            computerSelection = 'rock';
+        } else if (computerSelection == 1) {
+            computerSelection = 'paper'
+        } else if (computerSelection == 2) {
+            computerSelection = 'scissors'
         }
-        return choice
-        
-        // return choice
+        return computerSelection
+        // compChoice.innerHTML = computerSelection;
+
         
 }
 
 
 
+
 function playRound(userSelection, computerSelection) {
-    
+    let result;
     
     if (userSelection === computerSelection) {
             
-            resultDisplay.innerHTML = `You tied! ${userSelection} ties ${computerSelection}`
+            result = `You tied! ${userSelection} ties ${computerSelection}`
         
     } if ((userSelection === 'rock' && computerSelection === 'paper') ||
           (userSelection === 'paper' && computerSelection === 'scissors') ||
           (userSelection === 'scissors' && computerSelection === 'rock')) {
         
             // compCount++
-            resultDisplay.innerHTML = `You lose! ${computerSelection} beats ${userSelection}`
+            result = `You lose! ${computerSelection} beats ${userSelection}`
         
     } if ((userSelection === 'rock' && computerSelection === 'scissors') ||
           (userSelection === 'paper' && computerSelection === 'rock') ||
           (userSelection === 'scissors' && computerSelection === 'paper')){
             
             // userCount++
-            resultDisplay.innerHTML = `You win! ${userSelection} beats ${computerSelection}`
-    }}
+            result = 'You win!'
+    }
+    resultDisplay.innerHTML = result
+}
 
 let comptCount = 0;
 let userCount = 0;
@@ -83,3 +85,5 @@ let userCount = 0;
 // }
 
 // console.log(playRound(userSelection, computerSelection))
+
+console.log(getComputerChoice())
